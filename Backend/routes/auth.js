@@ -8,19 +8,11 @@ router.post("/login", validator.validateLogin, Controller.Login);
 
 router.post("/verify-token", Controller.VerifyToken);
 
-router.post(
-  "/forgot-password",
-  validator.validateForgotPassword,
-  Controller.ForgotPassword,
-);
+router.post("/forgot-password", validator.validateForgotPassword, Controller.ForgotPassword);
 
 router.post("/verify-otp", Controller.VerifyOtp);
 
-router.post(
-  "/reset-password",
-  validator.validateResetPassword,
-  Controller.ResetPassword,
-);
+router.post("/reset-password", validator.validateResetPassword, Controller.ResetPassword);
 
 router.post("/logout", Controller.Logout);
 

@@ -53,16 +53,12 @@ exports.Login = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ error: "incorrect password" });
     }
-    const accessToken = jwt.sign(
-      { userId: user._id, isAdmin: user.isAdmin },
-      process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "15m" },
-    );
-    const refreshToken = jwt.sign(
-      { userId: user._id, isAdmin: user.isAdmin },
-      process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: "60d" },
-    );
+    const accessToken = jwt.sign({ userId: user._id, isAdmin: user.isAdmin }, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: "15m",
+    });
+    const refreshToken = jwt.sign({ userId: user._id, isAdmin: user.isAdmin }, process.env.REFRESH_TOKEN_SECRET, {
+      expiresIn: "60d",
+    });
     const token = await Token.findOne({ userId: user._id });
     if (token) await token.deleteOne();
     await new Token({ userId: user._id, accessToken, refreshToken }).save();
@@ -93,10 +89,7 @@ exports.VerifyToken = async (req, res) => {
     const user = await User.findById(tokenData._id);
     if (!user) return res.json(false);
     // Verify the refresh token
-    const isValid = jwt.verify(
-      token.refreshToken,
-      process.env.REFRESH_TOKEN_SECRET,
-    );
+    const isValid = jwt.verify(token.refreshToken, process.env.REFRESH_TOKEN_SECRET);
     if (!isValid) return res.json(false);
 
     return res.json(true);
@@ -120,11 +113,7 @@ exports.ForgotPassword = async (req, res) => {
     // Send the OTP to the user's email
     let response;
     try {
-      response = await sendEmail(
-        email,
-        "Password Reset OTP",
-        `Your OTP for password reset is: ${otp}`,
-      );
+      response = await sendEmail(email, "Password Reset OTP", `Your OTP for password reset is: ${otp}`);
     } catch (mailError) {
       return res.status(500).json({ error: "Failed to send OTP email" });
     }
@@ -147,10 +136,7 @@ exports.VerifyOtp = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "email does not exist" });
     }
-    if (
-      user.resetPasswordOtp !== +otp ||
-      user.resetPasswordExpires < Date.now()
-    ) {
+    if (user.resetPasswordOtp !== +otp || user.resetPasswordExpires < Date.now()) {
       return res.status(400).json({ error: "Invalid or expired OTP" });
     }
     user.resetPasswordOtp = 1;

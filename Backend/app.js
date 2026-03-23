@@ -3,6 +3,8 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const authJwt = require("./middlewares/jwt");
+const errorHandler = require("./middlewares/error_handler");
 require("dotenv").config();
 
 const app = express();
@@ -13,6 +15,8 @@ app.use(bodyParser.json());
 app.use(morgan("tiny"));
 app.use(cors());
 app.options("/{*path}", cors());
+app.use(authJwt());
+app.use(errorHandler);
 
 // Routes
 const authRoutes = require("./routes/auth");
@@ -28,7 +32,5 @@ mongoose
 
 // Start the server
 app.listen(process.env.PORT, process.env.LOCALHOST, () => {
-  console.log(
-    `Server running at http://${process.env.LOCALHOST}:${process.env.PORT}`,
-  );
+  console.log(`Server running at http://${process.env.LOCALHOST}:${process.env.PORT}`);
 });
