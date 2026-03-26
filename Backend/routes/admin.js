@@ -1,26 +1,27 @@
 const router = require("express").Router();
-const controller = require("../controllers/admin");
+const userController = require("../controllers/admin/user");
+const categoryController = require("../controllers/admin/category");
+const orderController = require("../controllers/admin/order");
 
-router.get("/users/count", controller.getUsersCount);
-router.delete("/users/delete/:id", controller.deleteUser);
+router.get("/users/count", userController.getUsersCount);
+router.delete("/users/delete/:id", userController.deleteUser);
 
 //category routes
-router.post("/categories/create", controller.createCategory);
-router.put("/categories/update/:id", controller.updateCategory);
-router.delete("/categories/delete/:id", controller.deleteCategory);
+router.post("/categories/create", categoryController.addCategory);
+router.put("/categories/update/:id", categoryController.updateCategory);
+router.delete("/categories/delete/:id", categoryController.deleteCategory);
 
 //product routes
-router.get("/products/count", controller.getProductsCount);
-router.post("/products/create", controller.createProduct);
-router.put("/products/update/:id", controller.updateProduct);
-router.delete("/products/delete/:id/images", controller.deleteProductImages);
-router.delete("/products/delete/:id", controller.deleteProduct);
+// router.get("/products/count", controller.getProductsCount);
+// router.post("/products/create", controller.createProduct);
+// router.put("/products/update/:id", controller.updateProduct);
+// router.delete("/products/delete/:id/images", controller.deleteProductImages);
+// router.delete("/products/delete/:id", controller.deleteProduct);
 
 //order routes
-router.get("/orders", controller.getOrders);
-router.get("/orders/counts", controller.getOrdersCounts);
-router.get("/orders/:id", controller.getOrderById);
-router.put("/orders/update/:id", controller.updateOrderStatus);
-router.delete("/orders/delete/:id", controller.deleteOrder);
+router.get("/orders", orderController.getOrders);
+router.get("/orders/counts", orderController.getOrdersCounts);
+router.put("/orders/update/:id", orderController.updateOrderStatus);
+router.delete("/orders/delete/:id", orderController.deleteOrder);
 
 module.exports = router;

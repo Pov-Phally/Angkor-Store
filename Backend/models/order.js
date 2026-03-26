@@ -9,9 +9,19 @@ const orderSchema = new Schema({
   street: { type: String, required: true, trim: true },
   phone: { type: String, required: true, trim: true },
   paymentId: { type: String },
-  status: { type: String, enum: ["pending", "paid", "shipped", "on-hold", "delivered", "cancelled"], required: true, default: "pending" },
+  status: {
+    type: String,
+    enum: ["pending", "paid", "shipped", "on-hold", "delivered", "cancelled"],
+    required: true,
+    default: "pending",
+  },
   statusHistory: {
-    status: { type: String, enum: ["pending", "paid", "shipped", "on-hold", "delivered", "cancelled"], required: true, default: "pending" },
+    status: {
+      type: String,
+      enum: ["pending", "paid", "shipped", "on-hold", "delivered", "cancelled"],
+      required: true,
+      default: "pending",
+    },
     date: { type: Date, default: Date.now },
   },
   orderDate: { type: Date, default: Date.now },

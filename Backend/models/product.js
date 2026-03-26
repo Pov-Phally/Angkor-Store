@@ -12,20 +12,25 @@ const productSchema = new Schema({
   reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
   numberOfReviews: { type: Number, default: 0 },
   category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
-  genderAgeCategory: { type: String, enum: ["men", "women", "kids", "unisex"], required: true },
+  genderAgeCategory: {
+    type: String,
+    enum: ["men", "women", "kids", "unisex"],
+    required: true,
+  },
   countInStock: { type: Number, required: true, min: 0, max: 255 },
   dateAdded: { type: Date, default: Date.now },
 });
 
-productSchema.pre("save", async function (next) {
+productSchema.pre("save", async function () {
   if (this.reviews.length > 0) {
     await this.populate("reviews");
-    const totalRating = this.reviews.reduce((sum, review) => sum + review.rating, 0);
-    this.rating = totalRating / this.reviews.length;
+    const totalRating = this.reviews.reduce(
+      (sum, review) => sum + review.rating,
+      0,
+    );
     this.rating = parseFloat((totalRating / this.reviews.length).toFixed(1));
     this.numberOfReviews = this.reviews.length;
   }
-  next();
 });
 
 productSchema.index({ name: "text", description: "text" });

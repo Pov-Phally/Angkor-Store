@@ -12,6 +12,7 @@ const userSchema = new Schema({
   isAdmin: { type: Boolean, default: false },
   resetPasswordOtp: { type: Number },
   resetPasswordExpires: { type: Date },
+  cart:[{ type: Schema.Types.ObjectId, ref: "CartProduct" }],
   whishlist: [
     {
       productId: {

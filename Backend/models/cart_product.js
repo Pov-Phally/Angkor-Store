@@ -1,7 +1,7 @@
-const { Schmema, model } = require("mongoose");
-const product = require("./product");
+const { Schema, model } = require("mongoose");
+const category = require("./category");
 
-const CartProductSchema = new Schmema({
+const CartProductSchema = new Schema({
   productId: { type: Schema.Types.ObjectId, ref: "Product", required: true },
   productName: { type: String, required: true, trim: true },
   productImage: { type: String, required: true, trim: true },
@@ -11,6 +11,7 @@ const CartProductSchema = new Schmema({
   selectColor: { type: String, required: true, trim: true },
   reservationExpiry: { type: Date, default: Date.now() + 30 * 60 * 1000 },
   reserved: { type: Boolean, default: true },
+  
 });
 
 CartProductSchema.set("toJSON", { virtuals: true });
