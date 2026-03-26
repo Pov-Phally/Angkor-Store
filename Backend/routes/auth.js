@@ -1,19 +1,19 @@
 const router = require("express").Router();
-const Controller = require("../controllers/auth");
+const controller = require("../controllers/auth");
 const validator = require("../validator/user_validator");
 
-router.post("/register", validator.validateRegistration, Controller.Register);
+router.post("/register", validator.validateRegistration, controller.Register);
 
-router.post("/login", validator.validateLogin, Controller.Login);
+router.post("/login", validator.validateLogin, controller.Login);
 
-router.post("/verify-token", Controller.VerifyToken);
+router.post("/verify-token", controller.VerifyToken);
 
-router.post("/forgot-password", validator.validateForgotPassword, Controller.ForgotPassword);
+router.post("/forgot-password", validator.validateForgotPassword, controller.ForgotPassword);
 
-router.post("/verify-otp", Controller.VerifyOtp);
+router.post("/verify-otp", controller.VerifyOtp);
 
-router.post("/reset-password", validator.validateResetPassword, Controller.ResetPassword);
+router.post("/reset-password", validator.validateResetPassword, controller.ResetPassword);
 
-router.post("/logout", Controller.Logout);
+router.post("/logout", controller.Logout);
 
 module.exports = router;

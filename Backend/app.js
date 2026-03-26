@@ -20,9 +20,13 @@ app.use(errorHandler);
 
 // Routes
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/users");
+const adminRoutes = require("./routes/admin");
 
 // Use routes
 app.use(`/${apiUrl}/auth`, authRoutes);
+app.use(`/${apiUrl}/users`, userRoutes);
+app.use(`/${apiUrl}/admin`, adminRoutes);
 
 // Connect to MongoDB
 mongoose

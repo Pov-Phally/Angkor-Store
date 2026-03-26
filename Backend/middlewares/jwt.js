@@ -18,7 +18,7 @@ function authJwt() {
   });
 }
 async function isRevoked(req, jwt) {
-  const authHeader = req.headers("Authorization");
+  const authHeader = req.headers["authorization"];
   if (!authHeader.startsWith("Bearer ")) {
     return true;
   }

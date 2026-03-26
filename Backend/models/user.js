@@ -25,5 +25,7 @@ const userSchema = new Schema({
     },
   ],
 });
+userSchema.set("toJSON", { virtuals: true });
+userSchema.set("toObject", { virtuals: true });
 
 exports.User = model("User", userSchema);
