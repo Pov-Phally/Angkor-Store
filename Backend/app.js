@@ -22,12 +22,16 @@ app.use(errorHandler);
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
 const adminRoutes = require("./routes/admin");
+const categoryRoutes = require("./routes/category");
 
 // Use routes
 app.use(`/${apiUrl}/auth`, authRoutes);
 app.use(`/${apiUrl}/users`, userRoutes);
 app.use(`/${apiUrl}/admin`, adminRoutes);
-app.use('/public', express.static(__dirname + '/public') );
+app.use(`/${apiUrl}/categories`, categoryRoutes);
+app.use("/public", express.static(__dirname + "/public"));
+
+require("./helpers/cron_job");
 
 // Connect to MongoDB
 mongoose

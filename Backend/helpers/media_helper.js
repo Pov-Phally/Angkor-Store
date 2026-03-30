@@ -1,5 +1,5 @@
-const multer = require("multer");
 const path = require("path");
+const multer = require("multer");
 
 const ALLOWED_MIME_TYPES = {
   "image/jpeg": "jpg",
@@ -25,10 +25,7 @@ exports.upload = multer({
     if (ALLOWED_MIME_TYPES[file.mimetype]) {
       cb(null, true);
     } else {
-      cb(
-        new Error("Invalid file type. Only JPEG, PNG, and GIF are allowed."),
-        false,
-      );
+      cb(new Error("Invalid file type. Only JPEG, PNG, and GIF are allowed."), false);
     }
   },
 });
@@ -36,20 +33,14 @@ exports.upload = multer({
 exports.deleteImages = async (imageUrls, continueOnError) => {
   await Promise.all(
     imageUrls.map(async (imageUrls) => {
-      const imagePath = path.resolve(
-        __dirname,
-        "../../public/uploads/",
-        path.basename(imageUrls),
-      );
+      const imagePath = path.resolve(__dirname, "../../public/uploads/", path.basename(imageUrls));
       try {
         await fs.promises.unlink(imagePath);
       } catch (error) {
         if (error.code !== continueOnError) {
           console.error(`continue with the next image: ${error.message}:`);
         } else {
-          console.error(
-            `Failed to delete image ${imagePath}: ${error.message}`,
-          );
+          console.error(`Failed to delete image ${imagePath}: ${error.message}`);
           throw error;
         }
       }

@@ -1,4 +1,5 @@
-const { Schema, model } = require("mongoose");
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const productSchema = new Schema({
   name: { type: String, required: true, trim: true },
@@ -7,7 +8,7 @@ const productSchema = new Schema({
   rating: { type: Number, default: 0, min: 0, max: 5 },
   color: [{ type: String, trim: true }],
   size: [{ type: String, required: true, trim: true }],
-  image: { type: String, required: true, trim: true },
+  thumbnail: { type: String, required: true, trim: true },
   images: [{ type: String, trim: true }],
   reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
   numberOfReviews: { type: Number, default: 0 },
@@ -24,10 +25,7 @@ const productSchema = new Schema({
 productSchema.pre("save", async function () {
   if (this.reviews.length > 0) {
     await this.populate("reviews");
-    const totalRating = this.reviews.reduce(
-      (sum, review) => sum + review.rating,
-      0,
-    );
+    const totalRating = this.reviews.reduce((sum, review) => sum + review.rating, 0);
     this.rating = parseFloat((totalRating / this.reviews.length).toFixed(1));
     this.numberOfReviews = this.reviews.length;
   }
@@ -38,4 +36,4 @@ productSchema.index({ name: "text", description: "text" });
 productSchema.set("toJSON", { virtuals: true });
 productSchema.set("toObject", { virtuals: true });
 
-module.exports = model("Product", productSchema);
+module.exports = mongoose.models.Product || mongoose.model("Product", productSchema);

@@ -50,9 +50,7 @@ exports.updateOrderStatus = async (req, res) => {
     }
     order.status = status;
     await order.save();
-    return res
-      .status(200)
-      .json({ message: `Order ${orderId} status updated to ${status}` });
+    return res.status(200).json({ message: `Order ${orderId} status updated to ${status}` });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: error.name, message: error.message });
@@ -69,9 +67,7 @@ exports.deleteOrder = async (req, res) => {
     for (const orderItemIds of order.orderItems) {
       await OrderItem.findByIdAndDelete(orderItemIds.productId);
     }
-    return res
-      .status(200)
-      .json({ message: `Order ${orderId} deleted successfully.` });
+    return res.status(200).json({ message: `Order ${orderId} deleted successfully.` });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: error.name, message: error.message });
