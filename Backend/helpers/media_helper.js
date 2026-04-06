@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 const multer = require("multer");
 
 const ALLOWED_MIME_TYPES = {
@@ -31,13 +32,17 @@ exports.upload = multer({
 });
 
 exports.deleteImages = async (imageUrls, continueOnError) => {
+  // Validate that imageUrls is an array
+  if (!Array.isArray(imageUrls) || imageUrls.length === 0) {
+    return; // No images to delete
+  }
   await Promise.all(
-    imageUrls.map(async (imageUrls) => {
-      const imagePath = path.resolve(__dirname, "../../public/uploads/", path.basename(imageUrls));
+    imageUrls.map(async (imageUrl) => {
+      const imagePath = path.resolve(__dirname, "../public/uploads/", path.basename(imageUrl));
       try {
         await fs.promises.unlink(imagePath);
       } catch (error) {
-        if (error.code !== continueOnError) {
+        if (error.code === continueOnError) {
           console.error(`continue with the next image: ${error.message}:`);
         } else {
           console.error(`Failed to delete image ${imagePath}: ${error.message}`);

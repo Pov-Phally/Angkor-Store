@@ -23,12 +23,14 @@ const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
 const adminRoutes = require("./routes/admin");
 const categoryRoutes = require("./routes/category");
+const productRoutes = require("./routes/product");
 
 // Use routes
 app.use(`/${apiUrl}/auth`, authRoutes);
 app.use(`/${apiUrl}/users`, userRoutes);
 app.use(`/${apiUrl}/admin`, adminRoutes);
 app.use(`/${apiUrl}/categories`, categoryRoutes);
+app.use(`/${apiUrl}/products`, productRoutes);
 app.use("/public", express.static(__dirname + "/public"));
 
 require("./helpers/cron_job");

@@ -1,4 +1,4 @@
-const { User } = require("../models/user");
+const User = require("../models/user");
 exports.getUsers = async (_, res) => {
   try {
     const users = await User.find().select("id name email isAdmin");
@@ -15,7 +15,9 @@ exports.getUsers = async (_, res) => {
 exports.getUserById = async (req, res) => {
   const userId = req.params.id;
   try {
-    const user = await User.findById(userId).select("-passwordHash -resetPasswordOtp -resetPasswordExpires ");
+    const user = await User.findById(userId).select(
+      "-passwordHash -resetPasswordOtp -resetPasswordExpires ",
+    );
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }

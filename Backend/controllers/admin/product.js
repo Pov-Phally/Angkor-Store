@@ -29,7 +29,11 @@ exports.createProduct = async (req, res) => {
     try {
       await uploadImage(req, res);
     } catch (error) {
-      return res.status(400).json({ type: error.code, message: `${error.message},${error.field}`, storageErrors: error.storageErrors });
+      return res.status(400).json({
+        type: error.code,
+        message: `${error.message},${error.field}`,
+        storageErrors: error.storageErrors,
+      });
     }
 
     const category = await Category.findById(req.body.category);
@@ -88,11 +92,17 @@ exports.updateProduct = async (req, res) => {
       }
       if (req.body.images) {
         const limit = 10 - product.images.length;
-        const uploadGallery = util.promisify(mediaHelper.upload.fields([{ name: "images", maxCount: limit }]));
+        const uploadGallery = util.promisify(
+          mediaHelper.upload.fields([{ name: "images", maxCount: limit }]),
+        );
         try {
           await uploadGallery(req, res);
         } catch (error) {
-          return res.status(400).json({ type: error.code, message: `${error.message},${error.field}`, storageErrors: error.storageErrors });
+          return res.status(400).json({
+            type: error.code,
+            message: `${error.message},${error.field}`,
+            storageErrors: error.storageErrors,
+          });
         }
         const imageFiles = req.files["images"];
         const galleryUpdate = imageFiles && imageFiles.length > 0;
@@ -109,7 +119,11 @@ exports.updateProduct = async (req, res) => {
         try {
           await uploadThumbnail(req, res);
         } catch (error) {
-          return res.status(400).json({ type: error.code, message: `${error.message},${error.field}`, storageErrors: error.storageErrors });
+          return res.status(400).json({
+            type: error.code,
+            message: `${error.message},${error.field}`,
+            storageErrors: error.storageErrors,
+          });
         }
         const thumbnail = req.file["thumbnail"][0];
         if (thumbnail) {
@@ -121,7 +135,9 @@ exports.updateProduct = async (req, res) => {
     if (!updatedProduct) {
       return res.status(500).json({ message: "Failed to update product" });
     }
-    return res.status(200).json({ message: "Product updated successfully", product: updatedProduct });
+    return res
+      .status(200)
+      .json({ message: "Product updated successfully", product: updatedProduct });
   } catch (error) {
     if (error instanceof multer.MulterError) {
       return res.status(400).json({ type: error.code, message: error.message });
@@ -135,11 +151,16 @@ exports.deleteProductImages = async (req, res) => {
   const productId = req.params.id;
   const { deleteImages } = req.body;
   try {
+    // Validate that deleteImages is provided and is an array
+    if (!deleteImages || !Array.isArray(deleteImages) || deleteImages.length === 0) {
+      return res.status(400).json({ message: "No images to delete provided" });
+    }
     await mediaHelper.deleteImages(deleteImages, "ENOENT");
     const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
+    // Remove deleted images from images array
     product.images = product.images.filter((image) => !deleteImages.includes(image));
     await product.save();
     return res.status(200).json({ message: "Product images deleted successfully", product });
@@ -168,7 +189,7 @@ exports.deleteProduct = async (req, res) => {
 
 exports.getProducts = async (req, res) => {
   const page = req.query.page || 1;
-  const limit = 10;
+  const limit = req.query.limit || 10;
   const skip = (page - 1) * limit;
   try {
     const products = await Product.find().skip(skip).limit(limit);

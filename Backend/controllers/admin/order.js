@@ -45,7 +45,9 @@ exports.updateOrderStatus = async (req, res) => {
     if (!order) {
       return res.status(404).json({ error: "Order not found." });
     }
-    if (!order.statusHistory.includes(order.status)) {
+    // Check if current status is already in history, if not add it
+    const statusExists = order.statusHistory.some((history) => history.status === order.status);
+    if (!statusExists) {
       order.statusHistory.push({ status: order.status, date: new Date() });
     }
     order.status = status;

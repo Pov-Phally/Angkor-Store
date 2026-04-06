@@ -8,7 +8,7 @@ router.get("/users/count", userController.getUsersCount);
 router.delete("/users/delete/:id", userController.deleteUser);
 
 //category routes
-router.post("/categories/create", categoryController.addCategory);
+router.post("/categories/create", categoryController.createCategory);
 router.put("/categories/update/:id", categoryController.updateCategory);
 router.delete("/categories/delete/:id", categoryController.deleteCategory);
 

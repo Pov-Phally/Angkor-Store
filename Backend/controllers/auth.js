@@ -1,8 +1,8 @@
 const { validationResult } = require("express-validator");
-const { User } = require("../models/user");
+const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { Token } = require("../models/token");
+const Token = require("../models/token");
 const { sendEmail } = require("../helpers/email_sender");
 
 exports.Register = async (req, res) => {
@@ -53,12 +53,20 @@ exports.Login = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ error: "incorrect password" });
     }
-    const accessToken = jwt.sign({ userId: user._id, isAdmin: user.isAdmin }, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "15m",
-    });
-    const refreshToken = jwt.sign({ userId: user._id, isAdmin: user.isAdmin }, process.env.REFRESH_TOKEN_SECRET, {
-      expiresIn: "60d",
-    });
+    const accessToken = jwt.sign(
+      { userId: user._id, isAdmin: user.isAdmin },
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: "1h",
+      },
+    );
+    const refreshToken = jwt.sign(
+      { userId: user._id, isAdmin: user.isAdmin },
+      process.env.REFRESH_TOKEN_SECRET,
+      {
+        expiresIn: "60d",
+      },
+    );
     const token = await Token.findOne({ userId: user._id });
     if (token) await token.deleteOne();
     await new Token({ userId: user._id, accessToken, refreshToken }).save();
@@ -113,7 +121,11 @@ exports.ForgotPassword = async (req, res) => {
     // Send the OTP to the user's email
     let response;
     try {
-      response = await sendEmail(email, "Password Reset OTP", `Your OTP for password reset is: ${otp}`);
+      response = await sendEmail(
+        email,
+        "Password Reset OTP",
+        `Your OTP for password reset is: ${otp}`,
+      );
     } catch (mailError) {
       return res.status(500).json({ error: "Failed to send OTP email" });
     }

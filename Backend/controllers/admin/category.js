@@ -2,7 +2,7 @@ const mediaHelper = require("../../helpers/media_helper");
 const util = require("util");
 const Category = require("../../models/category");
 
-exports.addCategory = async (req, res) => {
+exports.createCategory = async (req, res) => {
   try {
     const uploadImage = util.promisify(mediaHelper.upload.fields([{ name: "image", maxCount: 1 }]));
 
@@ -40,7 +40,11 @@ exports.updateCategory = async (req, res) => {
   const categoryId = req.params.id;
   const { name, icon, color } = req.body;
   try {
-    const category = await Category.findByIdAndUpdate(categoryId, { name, icon, color }, { new: true });
+    const category = await Category.findByIdAndUpdate(
+      categoryId,
+      { name, icon, color },
+      { new: true },
+    );
     if (!category) {
       return res.status(404).json({ error: "Category not found." });
     }

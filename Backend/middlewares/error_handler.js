@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
-const { Token } = require("../models/token");
-const { User } = require("../models/user");
+const Token = require("../models/token");
+const User = require("../models/user");
 
 async function errorHandler(err, req, res, next) {
   if (err.name === "UnauthorizedError") {
@@ -21,9 +21,13 @@ async function errorHandler(err, req, res, next) {
       if (!user) {
         return res.status(401).json({ type: "Unauthorized", message: "User not found" });
       }
-      const newAccessToken = jwt.sign({ userId: user._id, isAdmin: user.isAdmin }, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: "24h",
-      });
+      const newAccessToken = jwt.sign(
+        { userId: user._id, isAdmin: user.isAdmin },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+          expiresIn: "24h",
+        },
+      );
       req.headers["Authorization"] = `Bearer ${newAccessToken}`;
       token.accessToken = newAccessToken;
       await token.save();

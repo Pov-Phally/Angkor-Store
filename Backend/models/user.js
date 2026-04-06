@@ -12,8 +12,8 @@ const userSchema = new Schema({
   isAdmin: { type: Boolean, default: false },
   resetPasswordOtp: { type: Number },
   resetPasswordExpires: { type: Date },
-  cart:[{ type: Schema.Types.ObjectId, ref: "CartProduct" }],
-  whishlist: [
+  cart: [{ type: Schema.Types.ObjectId, ref: "CartProduct" }],
+  wishlist: [
     {
       productId: {
         type: Schema.Types.ObjectId,
@@ -29,4 +29,4 @@ const userSchema = new Schema({
 userSchema.set("toJSON", { virtuals: true });
 userSchema.set("toObject", { virtuals: true });
 
-exports.User = model("User", userSchema);
+module.exports = model("User", userSchema);

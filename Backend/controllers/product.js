@@ -38,7 +38,7 @@ exports.getProducts = async (req, res) => {
   }
 };
 
-exports.serchProducts = async (req, res) => {
+exports.searchProducts = async (req, res) => {
   try {
     const searchTerm = req.query.q;
     const page = parseInt(req.query.page) || 1;

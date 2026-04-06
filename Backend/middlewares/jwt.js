@@ -1,5 +1,5 @@
 const { expressjwt: jwt } = require("express-jwt");
-const { Token } = require("../models/token");
+const Token = require("../models/token");
 
 function authJwt() {
   const apiUrl = process.env.API_URL;
@@ -25,6 +25,7 @@ async function isRevoked(req, jwt) {
   const accessToken = authHeader.replace("Bearer ", "").trim();
   const token = await Token.findOne({ accessToken });
 
+  // Check if the token is valid and if the user is an admin trying to access admin routes
   const adminRouteRegex = /^\/api\/v1\/admin(\/|$)/;
   const adminFault = !jwt.payload.isAdmin && adminRouteRegex.test(req.originalUrl);
 
