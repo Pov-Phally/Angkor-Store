@@ -11,17 +11,10 @@ require("dotenv").config();
 
 const Order = require("./models/order");
 const OrderItem = require("./models/order_item");
-const { User } = require("./models/user");
+const User = require("./models/user");
 const Product = require("./models/product");
 
-const STATUSES = [
-  "pending",
-  "paid",
-  "shipped",
-  "on-hold",
-  "delivered",
-  "cancelled",
-];
+const STATUSES = ["pending", "paid", "shipped", "on-hold", "delivered", "cancelled"];
 
 const ADDRESSES = [
   {
@@ -96,9 +89,7 @@ async function seed(orderCount = 30) {
         productPrice: product.price,
         quantity: randomInt(1, 5),
         selectSize: randomPick(product.size.length ? product.size : ["M"]),
-        selectColor: randomPick(
-          product.color.length ? product.color : ["Black"],
-        ),
+        selectColor: randomPick(product.color.length ? product.color : ["Black"]),
       });
       orderItemIds.push({ productId: item._id });
     }

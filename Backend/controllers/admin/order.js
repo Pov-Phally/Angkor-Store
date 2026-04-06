@@ -45,14 +45,14 @@ exports.updateOrderStatus = async (req, res) => {
     if (!order) {
       return res.status(404).json({ error: "Order not found." });
     }
-    if (!order.statusHistory.includes(order.status)) {
+    // Check if current status is already in history, if not add it
+    const statusExists = order.statusHistory.some((history) => history.status === order.status);
+    if (!statusExists) {
       order.statusHistory.push({ status: order.status, date: new Date() });
     }
     order.status = status;
     await order.save();
-    return res
-      .status(200)
-      .json({ message: `Order ${orderId} status updated to ${status}` });
+    return res.status(200).json({ message: `Order ${orderId} status updated to ${status}` });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: error.name, message: error.message });
@@ -69,9 +69,7 @@ exports.deleteOrder = async (req, res) => {
     for (const orderItemIds of order.orderItems) {
       await OrderItem.findByIdAndDelete(orderItemIds.productId);
     }
-    return res
-      .status(200)
-      .json({ message: `Order ${orderId} deleted successfully.` });
+    return res.status(200).json({ message: `Order ${orderId} deleted successfully.` });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: error.name, message: error.message });
