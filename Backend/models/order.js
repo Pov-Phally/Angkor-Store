@@ -25,6 +25,7 @@ const orderSchema = new Schema({
     date: { type: Date, default: Date.now },
   },
   orderDate: { type: Date, default: Date.now },
+  totalPrice: { type: Number, required: true },
   orderItems: [
     {
       productId: { type: Types.ObjectId, ref: "OrderItem", required: true },
