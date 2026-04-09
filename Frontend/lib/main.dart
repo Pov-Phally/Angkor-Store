@@ -1,8 +1,12 @@
 import 'package:angkor_store/core/res/style/color.dart';
-import 'package:angkor_store/core/res/style/text.dart';
+import 'package:angkor_store/core/services/injection_container.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+import 'core/services/router.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await init();
   runApp(const MyApp());
 }
 
@@ -22,24 +26,15 @@ class MyApp extends StatelessWidget {
       useMaterial3: true,
     );
 
-    return MaterialApp(
+    return MaterialApp.router(
       theme: theme,
+      routerConfig: router,
       themeMode: ThemeMode.system,
       darkTheme: theme.copyWith(
         scaffoldBackgroundColor: Colours.darkThemeBGDark,
         appBarTheme: const AppBarTheme(
           backgroundColor: Colours.darkThemeBGDark,
           foregroundColor: Colours.lightThemeWhiteColor,
-        ),
-      ),
-
-      title: 'Flutter Demo',
-      home: Scaffold(
-        body: Text(
-          'Hello',
-          style: TextStyles.headingBold.copyWith(
-            color: Colours.classicAdaptiveTextColor(context),
-          ),
         ),
       ),
     );
