@@ -1,9 +1,13 @@
+# === Node.js / Backend ===
 node_modules/
+bower_components/
 
 # Environment variables
 .env
 .env.*
 !.env.example
+.env.local
+.env.*.local
 
 # Logs
 logs/
@@ -12,14 +16,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
 
 # Runtime files
 pids/
 *.pid
 *.pid.lock
-
-# Dependency directories
-bower_components/
 
 # Coverage and test output
 coverage/
@@ -28,24 +30,80 @@ coverage/
 # Build output
 dist/
 build/
+out/
 
 # Cache
 .cache/
 .eslintcache
+.next
+out
 
-# OS files
-.DS_Store
-Thumbs.db
-
-# Editor/IDE
-.vscode/
-.idea/
-*.swp
-
-# Flutter
+# === Flutter / Frontend ===
 .dart_tool/
 .packages
 pubspec.lock
 .flutter-plugins
 .flutter-plugins-dependencies
 .fvm/
+
+# Flutter build
+Flutter/ephemeral/
+
+# Android
+android/.gradle/
+android/.gradle/*
+android/local.properties
+android/**/GeneratedPluginRegistrant.*
+*.iml
+.gradle/
+.m2/
+*.apk
+*.aar
+*.zip
+
+# iOS
+ios/Pods/
+ios/Podfile.lock
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+**/xcuserdata/
+**/project.xcworkspace/xcuserdata/
+
+# Generated files
+.dart_tool/gen_dart_plugin_registrant.dart
+
+# === General ===
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+.tmp/
+*.temp
+*.tmp
+
+# System files
+.AppleDouble
+.LSOverride
