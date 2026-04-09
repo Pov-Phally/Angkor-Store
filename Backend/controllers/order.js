@@ -66,6 +66,7 @@ exports.addOrder = async (orderData) => {
     await session.endSession();
   }
 };
+
 exports.getUserOrders = async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.params.userId })
