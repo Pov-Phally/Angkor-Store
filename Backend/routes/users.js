@@ -6,6 +6,7 @@ const wishlistController = require("../controllers/wishlist");
 router.get("/", controller.getUsers);
 router.get("/:id", controller.getUserById);
 router.put("/update/:id", controller.updateUser);
+router.get("/:id/paymentProfile", controller.paymentProfile);
 router.delete("/delete/:id", controller.deleteUser);
 
 //whistlist routes
