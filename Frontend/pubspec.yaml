@@ -38,6 +38,8 @@ dependencies:
   shared_preferences: ^2.5.5
   go_router: ^17.2.0
   get_it: ^9.2.1
+  equatable: ^2.0.8
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
@@ -86,11 +88,11 @@ flutter:
         - asset: assets/fonts/Switzer-Bold.otf
         - asset: assets/fonts/Switzer-BoldItalic.otf
           style: italic
-        - asset: assets/fonts/Switzer-ExtraBold.otf
-        - asset: assets/fonts/Switzer-ExtraBoldItalic.otf
+        - asset: assets/fonts/Switzer-Extrabold.otf
+        - asset: assets/fonts/Switzer-ExtraboldItalic.otf
           style: italic
-        - asset: assets/fonts/Switzer-ExtraLight.otf
-        - asset: assets/fonts/Switzer-ExtraLightItalic.otf
+        - asset: assets/fonts/Switzer-Extralight.otf
+        - asset: assets/fonts/Switzer-ExtralightItalic.otf
           style: italic
         - asset: assets/fonts/Switzer-Italic.otf
           style: italic
@@ -101,8 +103,8 @@ flutter:
         - asset: assets/fonts/Switzer-MediumItalic.otf
           style: italic
         - asset: assets/fonts/Switzer-Regular.otf
-        - asset: assets/fonts/Switzer-SemiBold.otf
-        - asset: assets/fonts/Switzer-SemiBoldItalic.otf
+        - asset: assets/fonts/Switzer-Semibold.otf
+        - asset: assets/fonts/Switzer-SemiboldItalic.otf
           style: italic
         - asset: assets/fonts/Switzer-Thin.otf
         - asset: assets/fonts/Switzer-ThinItalic.otf
