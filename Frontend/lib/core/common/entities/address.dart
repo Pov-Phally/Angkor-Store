@@ -9,7 +9,7 @@ class Address extends Equatable {
   final String? postalCode;
 
   const Address.empty()
-    : this(street: "", city: "", country: "", postalCode: "");
+    : this(street: "test", city: "test", country: "test", postalCode: "test");
 
   bool get isEmpty =>
       street == null && city == null && country == null && postalCode == null;
