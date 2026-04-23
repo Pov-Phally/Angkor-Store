@@ -11,4 +11,5 @@ abstract class Media {
   static const error = '$_baseLottie/Error.json';
   static const success = '$_baseLottie/Success.json';
   static const onBoarding = '$_baseLottie/on_boarding.json';
+  static const onBoarding_2 = '$_baseLottie/on_boarding_2.json';
 }

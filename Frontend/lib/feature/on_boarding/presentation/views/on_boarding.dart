@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'on_boarding_info_section.dart';
+import '../widgets/on_boarding_info_section.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});

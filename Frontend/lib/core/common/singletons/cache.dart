@@ -11,7 +11,7 @@ class Cache {
 
   String? get sessionToken => _sessionToken;
 
-  String? get userID => _userId;
+  String? get userId => _userId;
 
   void setSessionToken(String? newToken) {
     if (sessionToken != newToken) {

@@ -14,7 +14,7 @@ final router = GoRouter(
           ..getSessionToken()
           ..getUserId();
         if ((Cache.instance.sessionToken == null ||
-                Cache.instance.userID == null) &&
+                Cache.instance.userId == null) &&
             !cacheHelper.isFirstTimer()) {
           return LoginScreen.path;
         }
@@ -27,9 +27,14 @@ final router = GoRouter(
           ..getUserId();
         if (cacheHelper.isFirstTimer()) {
           return const OnBoardingScreen();
-        } else {
-          return const SplashScreen();
         }
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => serviceLocater<AuthCubit>()),
+            BlocProvider(create: (_) => serviceLocater<UserCubit>()),
+          ],
+          child: const SplashScreen(),
+        );
       },
     ),
     GoRoute(path: LoginScreen.path, builder: (_, _) => LoginScreen()),
