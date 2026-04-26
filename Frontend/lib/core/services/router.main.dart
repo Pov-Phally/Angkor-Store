@@ -38,6 +38,7 @@ final router = GoRouter(
       },
     ),
     GoRoute(path: LoginScreen.path, builder: (_, _) => LoginScreen()),
+    GoRoute(path: RegisterScreen.path, builder: (_, _) => RegisterScreen()),
     ShellRoute(
       builder: (context, state, child) {
         return DashboardScreen(state: state, child: child);

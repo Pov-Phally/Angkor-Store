@@ -2,24 +2,24 @@ import 'package:angkor_store/core/common/widgets/app_bar_bottom.dart';
 import 'package:angkor_store/core/extensions/text_style_extension.dart';
 import 'package:angkor_store/core/res/style/color.dart';
 import 'package:angkor_store/core/res/style/text.dart';
-import 'package:angkor_store/feature/auth/presentation/views/register_screen.dart';
+import 'package:angkor_store/feature/auth/presentation/views/login.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
-import '../widgets/login_form.dart';
+import '../widgets/register_form.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
-  static const path = "/login";
+  static const path = "/register";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login', style: TextStyles.headingSimiBold),
+        title: const Text('Register', style: TextStyles.headingSimiBold),
         bottom: AppBarBottom(),
       ),
       body: Column(
@@ -33,30 +33,30 @@ class LoginScreen extends StatelessWidget {
               ),
               children: [
                 Text(
-                  'Welcome',
+                  'Create new account',
                   style: TextStyles.headingBold3.adaptiveColor(context),
                 ),
                 Text(
-                  'sign in with your account',
+                  'Create new account with Angkor Store',
                   style: TextStyles.paragraphSubTextRegular1.grey,
                 ),
                 Gap(40),
-                LoginForm(),
+                RegisterForm(),
               ],
             ),
           ),
           const Gap(8),
           RichText(
             text: TextSpan(
-              text: "Don't have an account? ",
+              text: "Already have an account? ",
               style: TextStyles.paragraphSubTextRegular3.grey,
               children: [
                 TextSpan(
-                  text: "Sign Up",
+                  text: "Sign in",
                   style: TextStyle(color: Colours.lightThemePrimaryColor),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      context.go(RegisterScreen.path);
+                      context.go(LoginScreen.path);
                     },
                 ),
               ],

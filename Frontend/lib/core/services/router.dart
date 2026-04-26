@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../feature/auth/presentation/views/login.dart';
+import '../../feature/auth/presentation/views/register_screen.dart';
 import '../../feature/auth/presentation/views/splash_screen.dart';
 import '../../feature/dashboard/presentation/views/dashboard.dart';
 import '../../feature/home/presentation/views/home.dart';
