@@ -47,6 +47,7 @@ dependencies:
   gap: ^3.0.1
   country_picker: ^2.0.27
   flutter_multi_formatter: ^2.13.10
+  pin_code_fields: ^9.3.0
 
 dev_dependencies:
   flutter_test:

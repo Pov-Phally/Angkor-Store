@@ -11,6 +11,9 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(key: DashboardUtils.scaffoldKey);
+    return Scaffold(
+      key: DashboardUtils.scaffoldKey,
+      body: child,
+    );
   }
 }

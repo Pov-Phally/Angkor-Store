@@ -2,7 +2,7 @@ import 'package:angkor_store/core/common/widgets/app_bar_bottom.dart';
 import 'package:angkor_store/core/extensions/text_style_extension.dart';
 import 'package:angkor_store/core/res/style/color.dart';
 import 'package:angkor_store/core/res/style/text.dart';
-import 'package:angkor_store/feature/auth/presentation/views/login.dart';
+import 'package:angkor_store/feature/auth/presentation/views/login_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';

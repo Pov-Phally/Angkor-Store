@@ -1,3 +1,5 @@
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 const bodyParser = require("body-parser");
 const express = require("express");
 const morgan = require("morgan");

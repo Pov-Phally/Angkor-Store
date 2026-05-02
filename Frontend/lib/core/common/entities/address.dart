@@ -17,6 +17,5 @@ class Address extends Equatable {
   bool get isNotEmpty => !isEmpty;
 
   @override
-  // TODO: implement props
   List<Object?> get props => [street, city, country, postalCode];
 }

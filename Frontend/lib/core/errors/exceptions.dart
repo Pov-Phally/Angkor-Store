@@ -7,7 +7,6 @@ class ServerException extends Equatable implements Exception {
   final int statusCode;
 
   @override
-  // TODO: implement props
   List<Object?> get props => [message, statusCode];
 }
 
@@ -17,6 +16,5 @@ class CacheException extends Equatable implements Exception {
   final String message;
 
   @override
-  // TODO: implement props
   List<Object?> get props => [message];
 }

@@ -34,10 +34,10 @@ class AddressModel extends Address {
 
   AddressModel.fromMap(DataMap map)
     : this(
-        street: map['street'] as String,
-        city: map['city'] as String,
-        country: map['country'] as String,
-        postalCode: map['postalCode'] as String,
+        street: map['street'] as String?,
+        city: map['city'] as String?,
+        country: map['country'] as String?,
+        postalCode: map['postalCode'] as String?,
       );
 
   DataMap toMap() {

@@ -1,12 +1,15 @@
 import 'package:angkor_store/core/common/singletons/cache.dart';
 import 'package:angkor_store/core/services/injection_container.dart';
 import 'package:angkor_store/feature/auth/presentation/app/adapter/auth_cubit.dart';
+import 'package:angkor_store/feature/auth/presentation/views/reset_password_screen.dart';
+import 'package:angkor_store/feature/auth/presentation/views/verify_otp_screen.dart';
 import 'package:angkor_store/feature/user/app/adapter/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../feature/auth/presentation/views/login.dart';
+import '../../feature/auth/presentation/views/forgot_password_screen.dart';
+import '../../feature/auth/presentation/views/login_screen.dart';
 import '../../feature/auth/presentation/views/register_screen.dart';
 import '../../feature/auth/presentation/views/splash_screen.dart';
 import '../../feature/dashboard/presentation/views/dashboard.dart';

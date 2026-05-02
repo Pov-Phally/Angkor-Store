@@ -16,6 +16,5 @@ class AppBarBottom extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => Size.zero;
 }

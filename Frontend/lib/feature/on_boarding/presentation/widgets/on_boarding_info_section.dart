@@ -5,7 +5,7 @@ import 'package:angkor_store/core/res/media.dart';
 import 'package:angkor_store/core/res/style/color.dart';
 import 'package:angkor_store/core/res/style/text.dart';
 import 'package:angkor_store/core/services/injection_container.dart';
-import 'package:angkor_store/feature/auth/presentation/views/login.dart';
+import 'package:angkor_store/feature/auth/presentation/views/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';

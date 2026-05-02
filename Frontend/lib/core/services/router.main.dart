@@ -13,8 +13,7 @@ final router = GoRouter(
         final cacheHelper = serviceLocater<CacheHelper>()
           ..getSessionToken()
           ..getUserId();
-        if ((Cache.instance.sessionToken == null ||
-                Cache.instance.userId == null) &&
+        if ((Cache.instance.sessionToken == null || Cache.instance.userId == null) &&
             !cacheHelper.isFirstTimer()) {
           return LoginScreen.path;
         }
@@ -37,15 +36,43 @@ final router = GoRouter(
         );
       },
     ),
-    GoRoute(path: LoginScreen.path, builder: (_, _) => LoginScreen()),
-    GoRoute(path: RegisterScreen.path, builder: (_, _) => RegisterScreen()),
+    GoRoute(
+      path: LoginScreen.path,
+      builder: (_, _) =>
+          BlocProvider(create: (context) => serviceLocater<AuthCubit>(), child: LoginScreen()),
+    ),
+    GoRoute(
+      path: RegisterScreen.path,
+      builder: (_, _) =>
+          BlocProvider(create: (context) => serviceLocater<AuthCubit>(), child: RegisterScreen()),
+    ),
+    GoRoute(
+      path: ResetPasswordScreen.path,
+      builder: (_, state) => BlocProvider(
+        create: (context) => serviceLocater<AuthCubit>(),
+        child: ResetPasswordScreen(email: state.extra as String),
+      ),
+    ),
+    GoRoute(
+      path: VerifyOtpScreen.path,
+      builder: (_, state) => BlocProvider(
+        create: (context) => serviceLocater<AuthCubit>(),
+        child: VerifyOtpScreen(email: state.extra as String),
+      ),
+    ),
+    GoRoute(
+      path: ForgotPasswordScreen.path,
+      builder: (_, _) => BlocProvider(
+        create: (context) => serviceLocater<AuthCubit>(),
+        child: ForgotPasswordScreen(),
+      ),
+    ),
+
     ShellRoute(
       builder: (context, state, child) {
         return DashboardScreen(state: state, child: child);
       },
-      routes: [
-        GoRoute(path: HomeScreen.part, builder: (_, _) => const HomeScreen()),
-      ],
+      routes: [GoRoute(path: HomeScreen.part, builder: (_, _) => const HomeScreen())],
     ),
   ],
 );

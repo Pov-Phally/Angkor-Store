@@ -62,7 +62,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
       final response = await _client.post(
         uri,
         headers: NetworkConstant.header,
-        body: {"email": email},
+        body: jsonEncode({"email": email}),
       );
       if (response.statusCode != 200) {
         final payload = jsonDecode(response.body) as DataMap;
@@ -91,7 +91,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
       final response = await _client.post(
         uri,
         headers: NetworkConstant.header,
-        body: {"email": email, "password": password},
+        body: jsonEncode({"email": email, "password": password}),
       );
       final payload = jsonDecode(response.body) as DataMap;
       if (response.statusCode != 200) {
@@ -128,12 +128,12 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
       final response = await _client.post(
         uri,
         headers: NetworkConstant.header,
-        body: {
+        body: jsonEncode({
           "name": name,
           "email": email,
           "password": password,
           "phone": phone,
-        },
+        }),
       );
       if (response.statusCode != 200) {
         final payload = jsonDecode(response.body) as DataMap;
@@ -162,7 +162,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
       final response = await _client.post(
         uri,
         headers: NetworkConstant.header,
-        body: {"email": email, "newPassword": newPassword},
+        body: jsonEncode({"email": email, "newPassword": newPassword}),
       );
       if (response.statusCode != 200) {
         final payload = jsonDecode(response.body) as DataMap;
@@ -188,7 +188,7 @@ class AuthRemoteDataSourceImplementation implements AuthRemoteDataSource {
       final response = await _client.post(
         uri,
         headers: NetworkConstant.header,
-        body: {"email": email, "otp": otp},
+        body: jsonEncode({"email": email, "otp": otp}),
       );
       if (response.statusCode != 200) {
         final payload = jsonDecode(response.body) as DataMap;

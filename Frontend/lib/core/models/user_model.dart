@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:angkor_store/core/common/entities/user.dart';
 import 'package:angkor_store/core/utils/type_defs.dart';
 import 'package:angkor_store/feature/wishlist/data/models/wishlist_product_model.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../../../core/common/entities/address.dart';
 import '../../feature/wishlist/domain/entities/wishlist_product.dart';
@@ -68,24 +69,30 @@ class UserModel extends User {
       UserModel.fromMap(jsonDecode(source) as DataMap);
 
   factory UserModel.fromMap(DataMap map) {
-    final address = AddressModel.fromMap({
-      if (map case {'street': String street}) 'street': street,
-      if (map case {'city': String city}) 'city': city,
-      if (map case {'country': String country}) 'country': country,
-      if (map case {'postalCode': String postalCode}) 'postalCode': postalCode,
-    });
+    try {
+      final addressData = map['address'] as DataMap?;
+      final address = addressData == null
+          ? null
+          : AddressModel.fromMap(addressData);
 
-    return UserModel(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      email: map['email'] as String,
-      isAdmin: map['isAdmin'] as bool,
-      wishlist: List<DataMap>.from(
-        map['wishlist'] as List,
-      ).map(WishlistProductModel.fromMap).toList(),
-      address: address.isEmpty ? address : null,
-      phone: map['phone'] as String?,
-    );
+      return UserModel(
+        id: (map['id'] ?? map['_id'] ?? '') as String,
+        name: (map['name'] ?? '') as String,
+        email: (map['email'] ?? '') as String,
+        isAdmin: (map['isAdmin'] ?? false) as bool,
+        wishlist: map['wishlist'] == null
+            ? []
+            : List<DataMap>.from(
+                map['wishlist'] as List,
+              ).map(WishlistProductModel.fromMap).toList(),
+        address: address?.isNotEmpty == true ? address : null,
+        phone: map['phone'] as String?,
+      );
+    } catch (e) {
+      debugPrint("Error parsing UserModel: $e");
+      debugPrint("Map content: $map");
+      rethrow;
+    }
   }
 
   String toJson() => jsonEncode(toMap());

@@ -20,7 +20,7 @@ class Cache {
   }
 
   void setUserID(String? userId) {
-    if (userId != userId) {
+    if (_userId != userId) {
       _userId = userId;
     }
   }

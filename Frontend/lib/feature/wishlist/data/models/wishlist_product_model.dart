@@ -49,7 +49,7 @@ class WishlistProductModel extends WishlistProduct {
     : this(
         productId: map['productId'] as String,
         productName: map['productName'] as String,
-        productPrice: map['productPrice'] as double,
+        productPrice: (map['productPrice'] as num).toDouble(),
         productImage: map['productImage'] as String,
         productExists: map['productExists'] as bool,
         productOutOfStock: map['productOutOfStock'] as bool,

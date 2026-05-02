@@ -5,13 +5,21 @@ class ErrorResponse extends Equatable {
   const ErrorResponse({this.message, this.type, this.errorMessages});
 
   factory ErrorResponse.fromMap(DataMap map) {
-    var errorMessages = (map["error"] as List?)
-        ?.cast<DataMap>()
-        .map((erorr) => erorr["message"] as String)
-        .toList();
+    List<String>? errorMessages;
+    String? message = map["message"] as String?;
+
+    if (map["error"] is List) {
+      errorMessages = (map["error"] as List)
+          .cast<DataMap>()
+          .map((error) => error["message"] as String)
+          .toList();
+    } else if (map["error"] is String) {
+      message = map["error"] as String;
+    }
+
     if (errorMessages != null && errorMessages.isEmpty) errorMessages = null;
     return ErrorResponse(
-      message: map["message"] as String?,
+      message: message,
       type: map["type"] as String?,
       errorMessages: errorMessages,
     );

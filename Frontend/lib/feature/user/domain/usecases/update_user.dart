@@ -25,6 +25,5 @@ class UpdateUserParams extends Equatable {
   final DataMap updateData;
 
   @override
-  // TODO: implement props
   List<Object?> get props => [userId, updateData];
 }

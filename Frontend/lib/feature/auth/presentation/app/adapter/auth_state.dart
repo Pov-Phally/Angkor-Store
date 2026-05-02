@@ -19,8 +19,8 @@ final class OTPSent extends AuthState {
   const OTPSent();
 }
 
-final class loggedIn extends AuthState {
-  const loggedIn(this.user);
+final class LoggedIn extends AuthState {
+  const LoggedIn(this.user);
 
   final User user;
 

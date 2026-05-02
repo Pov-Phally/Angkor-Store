@@ -35,36 +35,31 @@ class AuthCubit extends Cubit<AuthState> {
   final ResetPassword _resetPassword;
   final VerifyToken _verifyToken;
 
-  Future<void> login(String email, String password) async {
+  Future<void> login({required String email, required String password}) async {
     emit(const AuthLoading());
     final result = await _login(LoginParams(email: email, password: password));
     result.fold((failure) => emit(AuthError(failure.errorMessage)), (user) {
       UserProvider.instance.setUser(user);
-      emit(loggedIn(user));
+      emit(LoggedIn(user));
     });
   }
 
-  Future<void> register(
-    String name,
-    String email,
-    String password,
-    String phone,
-  ) async {
+  Future<void> register({
+    required String name,
+    required String email,
+    required String password,
+    required String phone,
+  }) async {
     emit(const AuthLoading());
     final result = await _register(
-      RegisterParams(
-        name: name,
-        email: email,
-        password: password,
-        phone: phone,
-      ),
+      RegisterParams(name: name, email: email, password: password, phone: phone),
     );
     result.fold((failure) => emit(AuthError(failure.errorMessage)), (_) {
       emit(const Registered());
     });
   }
 
-  Future<void> forgotPassword(String email) async {
+  Future<void> forgotPassword({required String email}) async {
     emit(const AuthLoading());
     final result = await _forgotPassword(ForgotPasswordParams(email: email));
     result.fold((failure) => emit(AuthError(failure.errorMessage)), (_) {
@@ -72,7 +67,7 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
-  Future<void> verifyOTP(String email, String otp) async {
+  Future<void> verifyOTP({required String email, required String otp}) async {
     emit(const AuthLoading());
     final result = await _verifyOtp(VerifyOtpParams(email: email, otp: otp));
     result.fold((failure) => emit(AuthError(failure.errorMessage)), (_) {
@@ -80,7 +75,7 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
-  Future<void> resetPassword(String email, String newPassword) async {
+  Future<void> resetPassword({required String email, required String newPassword}) async {
     emit(const AuthLoading());
     final result = await _resetPassword(
       ResetPasswordParams(email: email, newPassword: newPassword),
